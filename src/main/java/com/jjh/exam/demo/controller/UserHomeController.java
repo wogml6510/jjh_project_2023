@@ -7,6 +7,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserHomeController {
 	
+	
+	@RequestMapping("/user/home/main")
+	@ResponseBody
+	public String showMain() {
+		return "Mian 입니다.";
+	}
+	
 	private int count;
 	public UserHomeController() {
 		count = 0;
@@ -22,14 +29,6 @@ public class UserHomeController {
 	public String doSetCount(int count) {
 		this.count = count;
 		return "count의 값이" + this.count + "으로 초기화 되었습니다.";
-	}
-	
-	
-	
-	@RequestMapping("/user/home/main")
-	@ResponseBody
-	public String showMain() {
-		return "Hi~";
 	}
 	
 	@RequestMapping("/user/home/main2")
