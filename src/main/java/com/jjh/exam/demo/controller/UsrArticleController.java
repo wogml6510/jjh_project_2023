@@ -13,33 +13,41 @@ import com.jjh.exam.demo.vo.Article;
 public class UsrArticleController {
 
 	int articlesLastId;
-   private List<Article> articles;
-   
-   public UsrArticleController() {
-	   articlesLastId = 0;
-	   articles = new ArrayList<>();
-   }
-   
-   @RequestMapping("/usr/article/doAdd")
-   @ResponseBody
-   public Article doAdd(String title, String body) {
-      int id = articlesLastId + 1 ;
-      Article article = new Article(id, title, body);
-      
-      articles.add(article);
-      articlesLastId = id;
-      
-      return article;
-   }
-   
-   @RequestMapping("/usr/article/getArticles")
-   @ResponseBody
-   public List<Article> getArticles() {
-      
-      
-      return articles;
-   }
-   
-   
-   
+	private List<Article> articles;
+
+	public UsrArticleController() {
+		articlesLastId = 0;
+		articles = new ArrayList<>();
+
+		makeTestData();
+	}
+
+	private void makeTestData() {
+		for (int i = 0; i < 10; i++) {
+			int id = articlesLastId++;
+			Article article = new Article(id, "제목" + i, "내용" + i);
+
+			articles.add(article);
+		}
+	}
+
+	@RequestMapping("/usr/article/doAdd")
+	@ResponseBody
+	public Article doAdd(String title, String body) {
+		int id = articlesLastId + 1;
+		Article article = new Article(id, title, body);
+
+		articles.add(article);
+		articlesLastId = id;
+
+		return article;
+	}
+
+	@RequestMapping("/usr/article/getArticles")
+	@ResponseBody
+	public List<Article> getArticles() {
+
+		return articles;
+	}
+
 }
