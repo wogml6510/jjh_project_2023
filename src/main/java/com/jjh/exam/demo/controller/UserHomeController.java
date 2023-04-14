@@ -11,7 +11,7 @@ public class UserHomeController {
 	@RequestMapping("/user/home/main")
 	@ResponseBody
 	public String showMain() {
-		return "Mian 입니다.";
+		return "Main 입니다.";
 	}
 	
 	private int count;
