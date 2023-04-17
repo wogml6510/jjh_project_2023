@@ -1,7 +1,5 @@
 package com.jjh.exam.demo.vo;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,18 +7,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberVO {
+public class Member {
+	
 	private int id;
 	private String loginId;
 	private String loginPw;
+	private int authLevel;
 	private String name;
 	private String nickname;
-	private String phone;
+	private String cellphoneNo;
 	private String email;
+	private boolean delStatuw;
+	private String delDate;
 	
-	private Date regDate = new Date();
-	private Date updateDate = new Date();
-	
-	
+	private String regDate;
+	private String updateDate;
 	
 }

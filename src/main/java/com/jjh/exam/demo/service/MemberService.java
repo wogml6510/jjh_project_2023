@@ -1,36 +1,50 @@
 package com.jjh.exam.demo.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.jjh.exam.demo.repository.MemberRepository;
-import com.jjh.exam.demo.vo.MemberVO;
+import com.jjh.exam.demo.vo.Member;
 
 @Service
 public class MemberService {
 	private MemberRepository memberRepository;
-	
+
 	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
 	}
-	
-	public MemberVO getMember(String loginId) {
-		return memberRepository.getMember(loginId);
+
+	public Member getMember(int id) {
+		return memberRepository.getMember(id);
 	}
-	
-	public List<MemberVO> getMemberList(){
-		return memberRepository.getMemberList();
+
+	public List<Member> getMembers() {
+		return memberRepository.getMembers();
 	}
-	public int insertMember(String loginId,String liginPw,String name, String nickName ,String phone, String email,Date regDate, Date updateDate) {
-		memberRepository.insertMember(loginId, liginPw, name, nickName, phone, email, regDate, updateDate);
+
+	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+		Member oldMember = getMemberByIdLoginId(loginId);
+		
+		if(oldMember != null) {
+			return -1;
+		}
+		
+		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+		
 		return memberRepository.getLastInsertId();
 	}
-
-	public void join(String loginId, String liginPw, String name, String nickName, String phone, String email,
-			Date regDate, Date updateDate) {
+	
+	private Member getMemberByIdLoginId(String loginId) {
 		
+		return memberRepository.getMemberByLoginId(loginId);
 	}
 
+	public void deleteMember(int id) {
+		memberRepository.deleteMember(id);
+	}
+
+	public void modifyMember(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+		memberRepository.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
+	}
 }
