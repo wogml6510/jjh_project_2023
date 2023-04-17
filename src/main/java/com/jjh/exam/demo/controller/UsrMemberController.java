@@ -37,55 +37,51 @@ public class UsrMemberController {
 
 	// 서비스 메서드 끝
 
-	   // 액션 메서드 시작
-	   @RequestMapping("/usr/member/doJoin")
-	   @ResponseBody
-	   public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
-	         
-	      if(Ut.empty(loginId)) {
-	         return "loginId(을)를 입력해주세요.";
-	      }
-	      if(Ut.empty(loginPw)) {
-	         return "loginPw(을)를 입력해주세요.";
-	      }
-	      if(Ut.empty(name)) {
-	         return "name(을)를 입력해주세요.";
-	      }
-	      if(Ut.empty(nickname)) {
-	         return "nickname(을)를 입력해주세요.";
-	      }
-	      if(Ut.empty(cellphoneNo)) {
-	         return "cellphoneNo(을)를 입력해주세요.";
-	      }
-	      if(Ut.empty(email)) {
-	         return "email(을)를 입력해주세요.";
-	      }
-	      
-	      int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-	      
-	      if(id == -1) {
-	         return "해당 로그인 아이디는 이미 사용중입니다.";
-	      }
-	      
-	      Member Member = memberService.getMember(id);
-	      
-	      return Member;
-	   }
+	// 액션 메서드 시작
+	@RequestMapping("/usr/member/doJoin")
+	@ResponseBody
+	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
+
+		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+
+		if (id == -1) {
+			return "해당 로그인 아이디는 이미 사용중입니다.";
+		}
+		if (id == -2) {
+			return "해당 별칭과 폰번호, 이메일은 이미 사용중입니다.";
+		}
+		
+		if (Ut.empty(loginId)) {
+			return "loginId(을)를 입력해주세요.";
+		}
+		if (Ut.empty(loginPw)) {
+			return "loginPw(을)를 입력해주세요.";
+		}
+		if (Ut.empty(name)) {
+			return "name(을)를 입력해주세요.";
+		}
+		if (Ut.empty(nickname)) {
+			return "nickname(을)를 입력해주세요.";
+		}
+		if (Ut.empty(cellphoneNo)) {
+			return "cellphoneNo(을)를 입력해주세요.";
+		}
+		if (Ut.empty(email)) {
+			return "email(을)를 입력해주세요.";
+		}
+
+		Member Member = memberService.getMember(id);
+
+		return Member;
+	}
 
 	@RequestMapping("/usr/member/getMembers")
 	@ResponseBody
 	public List<Member> getMembers() {
 		return memberService.getMembers();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping("/usr/member/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
@@ -100,7 +96,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public String doModify(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
 		Member Member = memberService.getMember(id);
 		if (Member == null) {
 			return id + "번 회원이 존재하지 않습니다.";

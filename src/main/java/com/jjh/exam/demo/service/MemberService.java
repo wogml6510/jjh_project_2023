@@ -24,27 +24,40 @@ public class MemberService {
 	}
 
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+
+		// 로그인아이디 중복체크
 		Member oldMember = getMemberByIdLoginId(loginId);
-		
-		if(oldMember != null) {
+		if (oldMember != null) {
 			return -1;
 		}
-		
+
+		// 별명,폰번호,이메일 중복체크
+		oldMember = getMemberByNickNameNPhoneNEmail(nickname, cellphoneNo, email);
+		if (oldMember != null) {
+			return -2;
+		}
+
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-		
+
 		return memberRepository.getLastInsertId();
 	}
-	
+
+	// 아이디 중복체크
 	private Member getMemberByIdLoginId(String loginId) {
-		
 		return memberRepository.getMemberByLoginId(loginId);
+	}
+
+	// 중복체크
+	private Member getMemberByNickNameNPhoneNEmail(String nickname, String cellphoneNo, String email) {
+		return memberRepository.getMemberByNickNameNPhoneNEmail(nickname, cellphoneNo, email);
 	}
 
 	public void deleteMember(int id) {
 		memberRepository.deleteMember(id);
 	}
 
-	public void modifyMember(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+	public void modifyMember(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+			String email) {
 		memberRepository.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
 	}
 }

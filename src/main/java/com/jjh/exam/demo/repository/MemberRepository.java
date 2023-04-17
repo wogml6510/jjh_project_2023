@@ -29,6 +29,9 @@ public interface MemberRepository {
 
 
 	public Member getMemberByLoginId(@Param("loginId")String loginId);
+
+
+	public Member getMemberByNickNameNPhoneNEmail(@Param("nickname")String nickname,@Param("cellphoneNo")String cellphoneNo,@Param("email")String email);
 	
 	
 }
