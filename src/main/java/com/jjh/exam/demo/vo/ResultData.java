@@ -15,13 +15,12 @@ public class ResultData {
 	private ResultData() {
 
 	}
-
+	// 실패
 	public static ResultData from(String resultCode, String msg) {
-
 		return from(resultCode, msg, null);
 	}
 
-	//
+	// 성공
 	public static ResultData from(String resultCode, String msg, Object data1) {
 		ResultData rd = new ResultData();
 		rd.resultCode = resultCode;
