@@ -28,9 +28,9 @@ public class UsrArticleController {
 		if(Ut.empty(body) ) {
 			return ResultData.from("F-2","body(을)를 입력해주세요.");
 		}
-		ResultData writeArDataRd = articleService.writeArticle(title, body);
+		ResultData<Integer> writeArDataRd = articleService.writeArticle(title, body);
 		
-		int id= (int)writeArDataRd.getData1();
+		int id= writeArDataRd.getData1();
 		
 		Article article = articleService.getArticle(id);
 		

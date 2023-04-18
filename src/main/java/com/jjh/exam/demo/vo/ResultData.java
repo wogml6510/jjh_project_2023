@@ -2,7 +2,7 @@ package com.jjh.exam.demo.vo;
 
 import lombok.Getter;
 
-public class ResultData {
+public class ResultData<DT> {
 	// S-1, S-2.. : 성공
 	// F-1 : 실패
 	@Getter
@@ -10,7 +10,7 @@ public class ResultData {
 	@Getter
 	private String msg; 		// 오류 메세지 
 	@Getter
-	private Object data1; 		// 비고란?
+	private DT data1; 		// 비고란?
 
 	private ResultData() {
 
@@ -21,8 +21,8 @@ public class ResultData {
 	}
 
 	// 성공
-	public static ResultData from(String resultCode, String msg, Object data1) {
-		ResultData rd = new ResultData();
+	public static <DT>ResultData<DT> from(String resultCode, String msg, DT data1) {
+		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
 		rd.data1 = data1;
@@ -30,7 +30,7 @@ public class ResultData {
 		return rd;
 	}
 
-	public static ResultData newData(ResultData joinRd, Object newData) {
+	public static <DT> ResultData<DT> newData(ResultData joinRd, DT newData) {
 		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
 	}
 	
