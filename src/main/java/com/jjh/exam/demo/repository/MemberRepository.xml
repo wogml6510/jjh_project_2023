@@ -16,7 +16,6 @@
 		email=#{email}
 	</insert>
 
-
 	<delete id="deleteMember">
 		DELETE
 		FROM Member
