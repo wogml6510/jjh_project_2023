@@ -1,7 +1,7 @@
 package com.jjh.exam.demo.vo;
 
 import lombok.Getter;
-
+// 범용보고서 이력서 양식?
 public class ResultData<DT> {
 	// S-1, S-2.. : 성공
 	// F-1 : 실패
@@ -10,12 +10,12 @@ public class ResultData<DT> {
 	@Getter
 	private String msg; 		// 오류 메세지 
 	@Getter
-	private DT data1; 		// 비고란?
+	private DT data1; 			// 데이터
 
 	private ResultData() {
 
 	}
-	// 실패
+	// 실패  가지고온 데이터 토스만 함
 	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode, msg, null);
 	}

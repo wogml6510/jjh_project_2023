@@ -78,9 +78,27 @@ public class UsrMemberController {
 		return ResultData.newData(joinRd, Member);
 	}
 	
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public ResultData<Member> doLogout(HttpSession httpSession) {
+
+		boolean isLogined = false;
+		
+		if(httpSession.getAttribute("loginedMemberId") == null) {
+			isLogined = true;
+		}
+		
+		if( isLogined ) {
+			return ResultData.from("S-1", "이미 로그아웃 상태입니다.");
+		}
+		httpSession.removeAttribute("loginedMemberId");
+		
+		return ResultData.from("S-2", "로그아웃 되었습니다.");
+	}
+	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpSession httpSession,String loginId, String loginPw) {
+	public ResultData<Member> doLogin(HttpSession httpSession,String loginId, String loginPw) {
 
 		boolean isLogined = false;
 		
@@ -105,7 +123,7 @@ public class UsrMemberController {
 			return ResultData.from("F-3", "존재하지 않은 로그인아이디 입니다.");
 		}
 		if(member.getLoginPw().equals(loginPw) == false ) {
-			return ResultData.from("F-4", "비밀번호가 존재하지 않습니다.");
+			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
 		}
 		
 		httpSession.setAttribute("loginedMemberId", member.getLoginId());
@@ -115,6 +133,7 @@ public class UsrMemberController {
 		
 		return ResultData.from("S-1", Ut.f("%s님 환영합니다.", member.getNickname()));
 	}
+
 
 	@RequestMapping("/usr/member/getMembers")
 	@ResponseBody
