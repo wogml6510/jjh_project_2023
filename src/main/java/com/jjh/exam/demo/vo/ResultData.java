@@ -21,7 +21,7 @@ public class ResultData<DT> {
 	}
 
 	// 성공
-	public static <DT>ResultData<DT> from(String resultCode, String msg, DT data1) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg, DT data1) {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
