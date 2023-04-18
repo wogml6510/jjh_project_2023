@@ -6,11 +6,11 @@ public class ResultData {
 	// S-1, S-2.. : 성공
 	// F-1 : 실패
 	@Getter
-	private String resultCode;
+	private String resultCode;	// 결과 값
 	@Getter
-	private String msg; // ?
+	private String msg; 		// 오류 메세지 
 	@Getter
-	private Object data1; // 비고란?
+	private Object data1; 		// 비고란?
 
 	private ResultData() {
 
