@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jjh.exam.demo.service.MemberService;
 import com.jjh.exam.demo.utill.Ut;
 import com.jjh.exam.demo.vo.Member;
+import com.jjh.exam.demo.vo.ResultData;
 
 @Controller
 public class UsrMemberController {
@@ -40,40 +41,41 @@ public class UsrMemberController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
+	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 
-		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
-
-		if (id == -1) {
-			return Ut.f("해당 로그인 아이디(%s)는 이미 사용중입니다.", loginId);
-		}
-		if (id == -2) {
-			return Ut.f("해당 별칭(%s)과 폰번호(%s), 이메일(%s)은 이미 사용중입니다.",nickname, cellphoneNo, email);
-		}
-		
 		if (Ut.empty(loginId)) {
-			return "loginId(을)를 입력해주세요.";
+			return ResultData.from("F-3", "loginId(을)를 입력해주세요.");
 		}
 		if (Ut.empty(loginPw)) {
-			return "loginPw(을)를 입력해주세요.";
+			return ResultData.from("F-4", "loginPw(을)를 입력해주세요.");
 		}
 		if (Ut.empty(name)) {
-			return "name(을)를 입력해주세요.";
+			return ResultData.from("F-5", "name(을)를 입력해주세요.");
 		}
 		if (Ut.empty(nickname)) {
-			return "nickname(을)를 입력해주세요.";
+			return ResultData.from("F-6", "nickname(을)를 입력해주세요.");
 		}
 		if (Ut.empty(cellphoneNo)) {
-			return "cellphoneNo(을)를 입력해주세요.";
+			return ResultData.from("F-7", "cellphoneNo(을)를 입력해주세요.");
 		}
 		if (Ut.empty(email)) {
-			return "email(을)를 입력해주세요.";
+			return ResultData.from("F-7", "email(을)를 입력해주세요.");
+		}
+		
+		// S-1
+		// 회원가입이 완료되었습니다.
+		// 7(몇번회원인지)
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
+
+		if (joinRd.isFail()) {
+			return joinRd;
 		}
 
-		Member Member = memberService.getMember(id);
+		Member Member = memberService.getMember((int) joinRd.getData1());
 
-		return Member;
+		return ResultData.newData(joinRd, Member);
+	   
 	}
 
 	@RequestMapping("/usr/member/getMembers")

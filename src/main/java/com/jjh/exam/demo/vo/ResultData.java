@@ -30,6 +30,10 @@ public class ResultData {
 		return rd;
 	}
 
+	public static ResultData newData(ResultData joinRd, Object newData) {
+		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	}
+	
 	// 코드가 성공했는지 여부
 	public boolean isSuccess() {
 		return resultCode.startsWith("S-");
@@ -39,5 +43,6 @@ public class ResultData {
 	public boolean isFail() {
 		return isSuccess() == false;
 	}
+	
 
 }
