@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,7 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public ResultData<Article> doAdd(HttpSession httpSession, String title, String body) {
+	public ResultData<?> doAdd(HttpSession httpSession, String title, String body) {
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		
@@ -50,11 +51,12 @@ public class UsrArticleController {
 		return ResultData.from(writeArDataRd.getResultCode(), writeArDataRd.getMsg(), "article", article);
 	}
 	
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public ResultData<List<Article>> getArticles() {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		List<Article> articles = articleService.getArticles();
-		return ResultData.from("S-1", "게시물 리스트 입니다.", "articles", articles);
+		model.addAttribute("articles",articles);
+		
+		return "usr/article/list";
 	}
 	
 	@RequestMapping("/usr/article/getArticle")
