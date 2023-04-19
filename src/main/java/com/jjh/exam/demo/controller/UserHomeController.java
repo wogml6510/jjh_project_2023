@@ -8,41 +8,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserHomeController {
 	
 	
-	@RequestMapping("/user/home/main")
-	@ResponseBody
+	@RequestMapping("/usr/home/main")
 	public String showMain() {
-		return "Main 입니다.";
+		return "usr/home/main";
 	}
 	
-	private int count;
-	public UserHomeController() {
-		count = 0;
+	@RequestMapping("/")
+	public String showRoot() {
+		return "redirect:/usr/home/main";
 	}
-	@RequestMapping("/user/home/getCount")
-	@ResponseBody
-	public int getCount() {
-		return count++;
-	}
-	
-	@RequestMapping("/user/home/doSetCount")
-	@ResponseBody
-	public String doSetCount(int count) {
-		this.count = count;
-		return "count의 값이" + this.count + "으로 초기화 되었습니다.";
-	}
-	
-	@RequestMapping("/user/home/main2")
-	@ResponseBody
-	public String showMain2() {
-		return "반가워~";
-	}
-	
-	@RequestMapping("/user/home/main3")
-	@ResponseBody
-	public String showMain3() {
-		return "잘가~";
-	}
-	
 
 }
 
