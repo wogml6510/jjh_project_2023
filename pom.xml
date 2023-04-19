@@ -17,7 +17,7 @@
    <properties>
       <java.version>17</java.version>
    </properties>
-   <dependencies>
+    <dependencies>
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
@@ -34,36 +34,28 @@
          <artifactId>lombok</artifactId>
          <optional>true</optional>
       </dependency>
-      
-      
-      <!--
-      기존의 제공되는 내장형 tomcat의 의존성을 주석처리 및 제거
-      <dependency>
+      <!-- <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-tomcat</artifactId>
          <scope>provided</scope>
       </dependency>-->
-      
-      <!-- JSP로 View를 리턴해줄 수 있는 tomcat의 의존성을 주입 -->
       <dependency>
              <groupId>org.apache.tomcat.embed</groupId>
              <artifactId>tomcat-embed-jasper</artifactId>
            <scope>provided</scope>
          </dependency>
-         
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
          <scope>test</scope>
       </dependency>
-      <!-- https://mvnrep ository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+      <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
          <dependency>
              <groupId>jakarta.servlet</groupId>
              <artifactId>jakarta.servlet-api</artifactId>
              <version>6.0.0</version>
              <scope>provided</scope>
          </dependency>
-         
          <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
          <dependency>
              <groupId>jakarta.servlet.jsp.jstl</groupId>
@@ -83,33 +75,27 @@
           <artifactId>mybatis-spring-boot-starter</artifactId>
           <version>3.0.1</version>
       </dependency>
-      
       <dependency>
          <groupId>com.mysql</groupId>
          <artifactId>mysql-connector-j</artifactId>
          <scope>runtime</scope>
       </dependency>
-      
-      <dependency>
+         <dependency>
          <groupId>org.bgee.log4jdbc-log4j2</groupId>
          <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
          <version>1.16</version>
       </dependency>
-      
-      <dependency>
+         <dependency>
          <groupId>org.apache.tomcat.embed</groupId>
          <artifactId>tomcat-embed-jasper</artifactId>
          <scope>provided</scope>
       </dependency>
-      
       <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
-      <dependency>
+         <dependency>
          <groupId>javax.servlet</groupId>
          <artifactId>jstl</artifactId>
          <version>1.2</version>
       </dependency>
-      
-      <!-- jsp확장 -->
       <dependency>
          <groupId>taglibs</groupId>
          <artifactId>standard</artifactId>
@@ -134,5 +120,6 @@
          </plugin>
       </plugins>
    </build>
+
 
 </project>
