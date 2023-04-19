@@ -73,9 +73,9 @@ public class UsrMemberController {
 			return (ResultData)joinRd;
 		}
 
-		Member Member = memberService.getMember(joinRd.getData1());
+		Member member = memberService.getMember(joinRd.getData1());
 
-		return ResultData.newData(joinRd, Member);
+		return ResultData.newData(joinRd,"member", member);
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
