@@ -26,8 +26,8 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody           // 클라이언트가 요청을 했을때만 받겠다.
 	public ResultData<?> doAdd(HttpServletRequest req, String title, String body) {
-
-		Rq rq = new Rq(req);
+		// Rq rq = new Rq(req); ㄱ Rq객체를 한번만 만들면됨
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined() == false) {
 			return ResultData.from("F-A","로그인 후 이용해주세요.");			
@@ -51,7 +51,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req,  Model model) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 		model.addAttribute("articles",articles);
@@ -61,7 +61,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		model.addAttribute("article",article);
@@ -72,7 +72,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
 	public ResultData<?> getForPrintArticle(HttpServletRequest req, int id) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
@@ -87,7 +87,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined() == false) {
 			return Ut.jsHistoryBack("로그인 후 이용해주세요.");			
@@ -95,12 +95,11 @@ public class UsrArticleController {
 		
 		Article article = articleService.getForPrintArticle(req.getContentLength(), id);
 		
-		if( article.getMemberId() != rq.getLoginedMemberId() ) {
-			return Ut.jsHistoryBack("권한이 없습니다");
-		}
-		
 		if ( article == null ) {
 			ResultData.from("F-1",Ut.f("%d번 게시물이 존재하지 않습니다.", id ));
+		}
+		if( article.getMemberId() != rq.getLoginedMemberId() ) {
+			return Ut.jsHistoryBack("권한이 없습니다");
 		}
 		
 		articleService.deleteArticle(id);
@@ -112,7 +111,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData<Article> doModify(HttpServletRequest req,int id, String title, String body) {
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if(rq.isLogined() == false) {
 			return ResultData.from("F-A","로그인 후 이용해주세요.");			

@@ -16,7 +16,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// InterceptorRegistry?
 	// addPathPatterns 이 이후에 들어오는 모든 인터셉터 작동해, excluedPathPatterns 이거 제외하고.
 	// 이 함수는 인터셉터를 적용하는 역할을 합니다.
-	@Override
+	@Override	// addInterceptors: 프로그램 실행되고 딱 한번만 실행.
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/error");
 	}
