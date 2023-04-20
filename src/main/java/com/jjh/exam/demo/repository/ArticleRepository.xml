@@ -18,10 +18,11 @@
 	</select>
 	
 	<select id="getArticles" resultType="Article">
-		SELECT * 
-		FROM article 
-		ORDER BY 
-		id DESC
+		SELECT A.*, M.nickname AS extra_writerName
+		FROM article as A
+		LEFT JOIN `member` AS M
+		ON A.memberId = M.id
+		ORDER BY id DESC
 	</select>
 
 	<select id="getLastInsertId" resultType="int">
