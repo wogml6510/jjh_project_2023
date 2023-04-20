@@ -46,14 +46,14 @@ public class UsrArticleController {
 		
 		int id= writeArDataRd.getData1();
 		
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		
 		return ResultData.from(writeArDataRd.getResultCode(), writeArDataRd.getMsg(), "article", article);
 	}
 	
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model) {
-		List<Article> articles = articleService.getArticles();
+		List<Article> articles = articleService.getForPrintArticles();
 		model.addAttribute("articles",articles);
 		
 		return "usr/article/list";
@@ -61,7 +61,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		model.addAttribute("article",article);
 		
 		return "usr/article/detail";
@@ -69,8 +69,8 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public ResultData<?> getArticle(int id) {
-		Article article = articleService.getArticle(id);
+	public ResultData<?> getForPrintArticle(int id) {
+		Article article = articleService.getForPrintArticle(id);
 		
 		if ( article == null ) {
 			//					
@@ -94,7 +94,7 @@ public class UsrArticleController {
 			return ResultData.from("F-A","로그인 후 이용해주세요.");			
 		}
 		
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		
 		if( article.getMemberId() != loginedMemberId ) {
 			return ResultData.from("F-2", "본인글만 삭제 가능합니다.");
@@ -124,7 +124,7 @@ public class UsrArticleController {
 			return ResultData.from("F-A","로그인 후 이용해주세요.");			
 		}
 		
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		
 		//
 		if ( article == null ) {
