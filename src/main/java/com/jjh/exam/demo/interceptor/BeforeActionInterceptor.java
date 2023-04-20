@@ -14,7 +14,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	// 즉 Rq를 Controller에 만들어주지 않아도 됨, 전달이 된다
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		Rq rq = new Rq(req);
+		Rq rq = new Rq(req, resp);
 		req.setAttribute("rq", rq);
 //		System.out.println("실행가능?");
 

@@ -29,10 +29,7 @@ public class UsrArticleController {
 		// Rq rq = new Rq(req); ㄱ Rq객체를 한번만 만들면됨
 		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if(rq.isLogined() == false) {
-			return ResultData.from("F-A","로그인 후 이용해주세요.");			
-		}
-		
+	
 		// title, body 입력하지 않았을때(공백,여백) 메세지
 		if(Ut.empty(title) ) {
 			return ResultData.from("F-1","title(을)를 입력해주세요.");

@@ -16,7 +16,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 	// BeforeActionInterceptor불러오기
 	@Autowired
-	NeedLoginInterceptor nedLoginInterceptor;
+	NeedLoginInterceptor needLoginInterceptor;
 
 	// InterceptorRegistry?
 	// addPathPatterns 이 이후에 들어오는 모든 인터셉터 작동해, excluedPathPatterns 이거 제외하고.
@@ -25,12 +25,14 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/error")
 				.excludePathPatterns("/resource/**");
-		
-		registry.addInterceptor(nedLoginInterceptor)
+		//로그인여부확인
+		registry.addInterceptor(needLoginInterceptor)
 				.addPathPatterns("/usr/article/write")
 				.addPathPatterns("/usr/article/doWrite")
 				.addPathPatterns("/usr/article/modify")
 				.addPathPatterns("/usr/article/doModify")
 				.addPathPatterns("/usr/article/doDelete");
+		
+		// before실행후 need실행
 	}
 }
