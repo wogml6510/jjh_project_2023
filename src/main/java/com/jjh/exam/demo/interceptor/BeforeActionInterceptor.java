@@ -1,8 +1,10 @@
 package com.jjh.exam.demo.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.jjh.exam.demo.service.MemberService;
 import com.jjh.exam.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,9 +20,13 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	// preHandle() : 컨트롤러 실행 전에 실행되며, 
 	// 컨트롤러가 실행되기 전에 인터셉터에서 처리할 작업을 구현할 수 있음. 
 	// 이 메서드에서 false를 반환하면 요청을 처리하는 과정이 중지 됨.
+	
+	@Autowired
+	private MemberService memberService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-		Rq rq = new Rq(req, resp);
+		Rq rq = new Rq(req, resp, memberService);
 		req.setAttribute("rq", rq);
 
 		return HandlerInterceptor.super.preHandle(req, resp, handler);

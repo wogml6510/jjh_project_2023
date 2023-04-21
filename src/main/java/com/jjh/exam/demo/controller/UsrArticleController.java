@@ -46,6 +46,12 @@ public class UsrArticleController {
 		return ResultData.from(writeArDataRd.getResultCode(), writeArDataRd.getMsg(), "article", article);
 	}
 	
+	@RequestMapping("/usr/article/write")
+	public String showList() {
+		
+		return "usr/article/write";
+	}
+	
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req,  Model model) {
 		Rq rq = (Rq)req.getAttribute("rq");

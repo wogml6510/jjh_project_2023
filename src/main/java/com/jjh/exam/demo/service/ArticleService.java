@@ -41,8 +41,10 @@ public class ArticleService {
 		}
 		// 현재 로그인유저가 삭제할수 있냐
 		ResultData actorCanDeleeRd = actorCanDelete(actorId, article);
-		
 		article.setExtra_actorCanDelete(actorCanDeleeRd.isSuccess());
+
+		ResultData actorCanModifyRd = actorCanModify(actorId, article);
+		article.setExtra_actorCanModify(actorCanModifyRd.isSuccess());
 	}
 	
 	public ResultData actorCanDelete(int actorId, Article article) {
