@@ -11,6 +11,7 @@ import lombok.Getter;
 
 // HttpSession을 Controller에서 중복사용됨 
 // -> Request조금도 쓰기 쉽게 하는것(중복코드)
+// Session관리
 public class Rq {
 	@Getter
 	private boolean isLogined;	
@@ -40,18 +41,9 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 	}
 	
-	public void prinHhistoryBackJs(String msg) {
+	public void prinHhistoryBackJs(String msg) {	
 		resp.setContentType("text/html; charset=UTF-8");
-		
-		// 비어있는지 확인, 후 뒤로 돌아가기
-		print("<script>");
-		
-		if(!Ut.empty(msg)) {
-			println("alert('"+msg+"');");
-		}
-		println("history.back()");
-		
-		print("</script>");
+		print(Ut.jsHistoryBack(msg));
 	}
 	
 	public void print(String str) {
@@ -73,6 +65,12 @@ public class Rq {
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
+	}
+	
+	public String historyBackJsOneview(String msg){
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		return "common/js";
 	}
 	
 }
