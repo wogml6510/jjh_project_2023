@@ -24,7 +24,7 @@ public class Ut {
 	public static String jsHistoryBack(String msg) {
 		return Ut.f("""
 				<script>
-				const msg = '$s'.trim();
+				const msg = '%s'.trim();
 				if(msg.length > 0){
 					alert(msg);
 				}
