@@ -94,7 +94,7 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
-		Article article = articleService.getForPrintArticle(req.getContentLength(), id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if ( article == null ) {
 			ResultData.from("F-1",Ut.f("%d번 게시물이 존재하지 않습니다.", id ));

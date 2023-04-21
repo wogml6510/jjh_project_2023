@@ -33,14 +33,14 @@ title = '제목3',
 `body` = '내용3';
 
 # 게시물 테이블에 회원정보 추가
-Alter table article add column memberId int(10) unsigned not null after `updateDate`;
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
 
 # 기존 게시물의 작성자를 2번으로 지정
-update article
-set memberId = 2;
-where memberid = 0;
+UPDATE article
+SET memberId = 2;
+WHERE memberid = 0;
 
-select * from article;
+SELECT * FROM article;
 
 SELECT LAST_INSERT_ID();
 
@@ -97,8 +97,50 @@ email = 'user2@gmail.com';
 SELECT * FROM `member`;
 
 SELECT A.*, M.nickname AS extra_writerName
-FROM article as A
+FROM article AS A
 LEFT JOIN `member` AS M
 ON A.memberId = M.id
 ORDER BY id DESC
 
+
+# 게시판 테이블 생성
+CREATE TABLE board (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` CHAR(50) NOT NULL UNIQUE COMMENT 'notice(공지사항), free(자유게시판1), free2(자유게시판2,...',
+    `name` CHAR(50) NOT NULL UNIQUE COMMENT '게시판 이름',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부(0=탈퇴전, 1=탈퇴)',
+    delDate DATETIME COMMENT '삭제날짜'
+); 
+
+#게시판, 테스트 데이터 생성
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '관리자';
+
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free1',
+`name` = '자유';
+
+# 게시판 테이브렝 boardId 컬럼 추가
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
+
+# 1, 2번 게시물을 공지사항 게시물로 지정
+UPDATE article
+SET boardId = 1
+WHERE id IN(1,2);
+
+# 3번 게시물을 공지사항 게시물로 지정
+UPDATE article
+SET boardId = 2
+WHERE id IN(3);
+
+SELECT * FROM board WHERE id =1;
+SELECT * FROM board WHERE id =2;
+
+SELECT * FROM article;
