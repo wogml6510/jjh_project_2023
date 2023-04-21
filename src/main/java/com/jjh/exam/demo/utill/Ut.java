@@ -22,7 +22,7 @@ public class Ut {
 	}
 
 	public static String jsHistoryBack(String msg) {
-		return """
+		return Ut.f("""
 				<script>
 				const msg = '$s'.trim();
 				if(msg.length > 0){
@@ -30,7 +30,7 @@ public class Ut {
 				}
 				history.back();
 				</script>				
-				""";
+				""",msg);
 	}
 	// 메세지 보여주고 나서 이동
 	public static String jsReplace(String msg, String uri) {

@@ -23,7 +23,7 @@ public class Rq {
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
-		
+		// 로그인 유저 확인
 		HttpSession httpSession = req.getSession();
 		boolean isLogined = false;
 		int loginedMemberId = 0;

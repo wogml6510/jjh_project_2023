@@ -8,12 +8,9 @@ import com.jjh.exam.demo.vo.Rq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 												
-@Component									// spring안에 배당되어있는 interceptor
+@Component								
 public class NeedLoginInterceptor implements HandlerInterceptor {
 	// NeedLoginInterceptor : 필터역할, 먼저 실행됨으로서 로그인 여부 확인
-	
-	// BeforeActionInterceptor : Action실행되기 전에 먼저실행됨, preHandle이 먼저 실행됨
-	// 즉 Rq를 Controller에 만들어주지 않아도 됨, 전달이 된다
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		// Rq에서 로그인 여부를 물어봄

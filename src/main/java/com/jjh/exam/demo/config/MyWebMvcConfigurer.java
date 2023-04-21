@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.jjh.exam.demo.interceptor.BeforeActionInterceptor;
 import com.jjh.exam.demo.interceptor.NeedLoginInterceptor;
 
-@Configuration //
+@Configuration 
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// BeforeActionInterceptor불러오기
 	@Autowired
