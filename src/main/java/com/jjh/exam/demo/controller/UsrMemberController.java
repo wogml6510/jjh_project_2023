@@ -19,14 +19,15 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class UsrMemberController {
 	// 인스턴스 변수 시작
-	@Autowired
 	private MemberService memberService;
-
+	private Rq rq;
+	
 	// 인스턴스 변수 끝
 
 	// 생성자
-	public UsrMemberController() {
-
+	public UsrMemberController(MemberService memberService, Rq rq) {
+		this.memberService =memberService;
+		this.rq = rq;
 	}
 	// 서비스 메서드 시작
 
@@ -84,8 +85,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		if( !rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
@@ -104,8 +103,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(HttpServletRequest req,String loginId, String loginPw) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		if( rq.isLogined()) {
 			return rq.jsHistoryBack("이미 로그인되어있습니다.");
 		}
@@ -151,8 +148,7 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo,
-			String email) {
+	public String doModify(int id, String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
 		Member Member = memberService.getMember(id);
 		if (Member == null) {
 			return id + "번 회원이 존재하지 않습니다.";

@@ -2,6 +2,10 @@ package com.jjh.exam.demo.vo;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import com.jjh.exam.demo.service.MemberService;
 import com.jjh.exam.demo.utill.Ut;
 
@@ -13,6 +17,9 @@ import lombok.Getter;
 // HttpSession을 Controller에서 중복사용됨 
 // -> Request조금도 쓰기 쉽게 하는것(중복코드)
 // Session관리
+//자동주입이되는 // 객체가 하나만 존재하는게 아니라 각각의 객체별로 존재해야한다
+@Component 																
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) 	
 public class Rq {
 	@Getter
 	private boolean isLogined;	
@@ -44,6 +51,8 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
+		
+		this.req.setAttribute("rq", memberService);	// Rq를 편하게 쓰기위해서 변경해줌
 	}
 	
 	public void prinHhistoryBackJs(String msg) {	
