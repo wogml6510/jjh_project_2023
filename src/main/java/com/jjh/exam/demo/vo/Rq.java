@@ -52,7 +52,7 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
 		
-		this.req.setAttribute("rq", memberService);	// Rq를 편하게 쓰기위해서 변경해줌
+		this.req.setAttribute("rq", this);	// Rq를 편하게 쓰기위해서 변경해줌
 	}
 	
 	public void prinHhistoryBackJs(String msg) {	

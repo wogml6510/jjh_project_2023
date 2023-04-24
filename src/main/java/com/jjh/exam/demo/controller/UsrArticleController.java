@@ -33,7 +33,7 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody           // 클라이언트가 요청을 했을때만 받겠다.
-	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
+	public String doWrite(int boardId, String title, String body, String replaceUri) {
 	
 		// title, body 입력하지 않았을때(공백,여백) 메세지
 		if(Ut.empty(title) ) {
@@ -42,7 +42,7 @@ public class UsrArticleController {
 		if(Ut.empty(body) ) {
 			return rq.jsHistoryBack("body(을)를 입력해주세요.");
 		}
-		ResultData<Integer> writeArDataRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		ResultData<Integer> writeArDataRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 		
 		int id= writeArDataRd.getData1();
 		
@@ -50,7 +50,7 @@ public class UsrArticleController {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 		
-		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), body);
+		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), replaceUri);
 	}
 	
 	@RequestMapping("/usr/article/write")
@@ -60,7 +60,7 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req,  Model model, int boardId) {
+	public String showList(Model model, int boardId) {
 		Board board = boardService.getBoardById(boardId);
 
 		if( board == null ) {
@@ -80,7 +80,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
+	public String showDetail(Model model, int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		model.addAttribute("article",article);
 		
@@ -89,7 +89,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public ResultData<?> getForPrintArticle(HttpServletRequest req, int id) {
+	public ResultData<?> getForPrintArticle(int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if ( article == null ) {
@@ -102,7 +102,7 @@ public class UsrArticleController {
 	// 삭제
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpServletRequest req, int id) {
+	public String doDelete(int id) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if ( article == null ) {
@@ -119,7 +119,7 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/modify")
-	public String Showmodify(HttpServletRequest req,Model model, int id, String title, String body) {
+	public String Showmodify(Model model, int id, String title, String body) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if ( article == null ) {
@@ -140,7 +140,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req,int id, String title, String body) {
+	public String doModify(int id, String title, String body) {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		//

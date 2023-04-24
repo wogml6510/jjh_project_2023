@@ -83,7 +83,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
+	public String doLogout() {
 
 		if( !rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
