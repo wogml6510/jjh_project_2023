@@ -19,6 +19,7 @@ public class ArticleService {
 	// 왜 해줘야함? 갱신개념??
 	// detail
 	public Article getForPrintArticle(int actorId, int id) {
+		
 		Article article = articleRepository.getForPrintArticle(id);
 		
 		updateForPrintData(actorId, article);
@@ -26,8 +27,20 @@ public class ArticleService {
 		return article;
 	}
 	// actorId 로그인한사람
-	public List<Article> getForPrintArticles(int actorId, int boardId) {
-		List<Article> articles = articleRepository.getForPrintArticles(boardId);
+	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsCountInAPage, int page) {
+
+		/*
+		 SELECT *
+		 FROM article
+		 WHERE boardId = 1
+		 ORDER BY id DESC
+		 LIMIT 0, 10		// 1페이지, 0~9까지, 2페이지, 10~19
+		 */
+		int limitStart = (page - 1) * itemsCountInAPage;	// 
+		int limitTake = itemsCountInAPage;
+		
+		
+		List<Article> articles = articleRepository.getForPrintArticles(boardId, limitStart, limitTake);
 		
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);

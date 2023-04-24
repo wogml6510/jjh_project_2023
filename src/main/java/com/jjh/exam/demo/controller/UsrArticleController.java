@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jjh.exam.demo.service.ArticleService;
@@ -60,7 +61,7 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
 		Board board = boardService.getBoardById(boardId);
 
 		if( board == null ) {
@@ -69,8 +70,9 @@ public class UsrArticleController {
 		
 		// 게시글 총 수
 		int articlesCount = articleService.getArticlesCount(boardId);
+		int itemsCountAPage = 10; // 하나의 페이지 안에서 카우트몇개할꺼냐 (pagenation)
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountAPage, page);
 
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
