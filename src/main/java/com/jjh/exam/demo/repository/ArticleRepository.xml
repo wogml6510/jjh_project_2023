@@ -19,13 +19,25 @@
 		WHERE A.id = #{id}
 	</select>
 	
-	<select id="getForPrintArticles" resultType="Article">
-		SELECT A.*, M.nickname AS extra_writerName
+	<select id="getArticlesCount" resultType="int">
+		SELECT COUNT(*) AS cnt
 		FROM article as A
-		LEFT JOIN `member` AS M
-		ON A.memberId = M.id
-		ORDER BY id DESC
+		<if test="boardId != 0">
+			WHERE A.boardId = #{boardId}
+		</if>
 	</select>
+	
+	<select id="getForPrintArticles" resultType="Article">
+      SELECT A.*,
+      M.nickname AS extra_writerName
+      FROM article AS A
+      LEFT JOIN member AS M
+      ON A.memberId = M.id
+      <if test="boardId != 0">
+         WHERE A.boardId = #{boardId}
+      </if>
+      ORDER BY id DESC
+   </select>
 
 	<select id="getLastInsertId" resultType="int">
 		SELECT LAST_INSERT_ID()

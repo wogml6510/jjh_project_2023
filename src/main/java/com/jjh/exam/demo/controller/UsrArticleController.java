@@ -72,9 +72,13 @@ public class UsrArticleController {
 			return rq.historyBackJsOneview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
+		// 게시글 총 수
+		int articlesCount = articleService.getArticlesCount(boardId);
+		
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
 
 		model.addAttribute("board", board);
+		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";

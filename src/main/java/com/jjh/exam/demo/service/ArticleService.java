@@ -26,8 +26,8 @@ public class ArticleService {
 		return article;
 	}
 	// actorId 로그인한사람
-	public List<Article> getForPrintArticles(int actorId) {
-		List<Article> articles = articleRepository.getForPrintArticles();
+	public List<Article> getForPrintArticles(int actorId, int boardId) {
+		List<Article> articles = articleRepository.getForPrintArticles(boardId);
 		
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
@@ -86,5 +86,9 @@ public class ArticleService {
 			return ResultData.from("F-2", "권한이 없습니다.");
 		}
 		return ResultData.from("S-1", "수정이 가능합니다.");
+	}
+	public int getArticlesCount(int boardId) {
+		
+		return articleRepository.getArticlesCount(boardId);
 	}
 }
