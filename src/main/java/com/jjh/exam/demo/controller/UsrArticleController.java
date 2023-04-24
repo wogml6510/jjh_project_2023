@@ -2,7 +2,6 @@ package com.jjh.exam.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,6 @@ import com.jjh.exam.demo.vo.Article;
 import com.jjh.exam.demo.vo.Board;
 import com.jjh.exam.demo.vo.ResultData;
 import com.jjh.exam.demo.vo.Rq;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
@@ -68,13 +65,19 @@ public class UsrArticleController {
 			return rq.historyBackJsOneview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		
+		// 글이 20, 한페이지에 10개, 1페이지 2페이지
+		// 글이 21, 한페이지에 10개, 1페이지 2페이지 3페이지
 		// 게시글 총 수
-		int articlesCount = articleService.getArticlesCount(boardId);
-		int itemsCountAPage = 10; // 하나의 페이지 안에서 카우트몇개할꺼냐 (pagenation)
+		int articlesCount = articleService.getArticlesCount(boardId);	// 총개시글
+		int itemsCountInAPage = 10; // 하나의 페이지 안에서 카우트몇개할꺼냐 (pagenation)
+		int pagesCount = (int)(Math.ceil((double)articlesCount / itemsCountInAPage));
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountAPage, page);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage, page);
 
 		model.addAttribute("board", board);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 		
