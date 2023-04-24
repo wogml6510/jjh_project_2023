@@ -43,10 +43,24 @@
     
     <div class="page-menu mt-5 flex justify-center">
     	<div class="btn-group">
-		  	<c:forEach begin="1" end="${pagesCount}" var="i">
-		  		<a class="btn btn-sm ${param.page == i ? 'btn-active' : '' }" href="?page=${i}">${i }</a>
-		  	
-		  	</c:forEach>
+    	<!-- 현재페이지 기준 좌우로 몇개씩 보여줄건지 -->
+    	<c:set var="pageMenuArmLen" value="4"/>
+	       <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1 }"/>
+	       <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount }"/>
+	       
+	       <c:if test="${startPage > 1}">
+	          <a class ="btn btn-sm " href="?boardId=${boardId }&page=1">1</a>
+	          <a class ="btn btn-sm btn-disabled" >...</a>
+	       </c:if>
+	       
+	        <c:forEach begin="${startPage }" end="${endPage }" var="i">
+	           <a class ="btn btn-sm ${page == i ? 'btn-active' : ''}" href="?boardId=${boardId }&page=${i}">${i}</a>
+	        </c:forEach>
+	        
+	        <c:if test="${endPage < pagesCount}">
+	           <a class ="btn btn-sm btn-disabled" >...</a>
+	          <a class ="btn btn-sm " href="?boardId=${boardId }&page=${pagesCount}">${pagesCount}</a>
+	       </c:if>
 		</div>
     </div>
     
