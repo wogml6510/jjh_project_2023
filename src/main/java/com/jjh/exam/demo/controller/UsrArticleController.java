@@ -9,18 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jjh.exam.demo.service.ArticleService;
+import com.jjh.exam.demo.service.BoardService;
 import com.jjh.exam.demo.utill.Ut;
 import com.jjh.exam.demo.vo.Article;
+import com.jjh.exam.demo.vo.Board;
 import com.jjh.exam.demo.vo.ResultData;
 import com.jjh.exam.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private BoardService boardService;
+	
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService = articleService;
+		this.boardService = boardService;
+	}
 	
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
@@ -47,19 +55,27 @@ public class UsrArticleController {
 		
 		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), body);
 	}
-
 	
 	@RequestMapping("/usr/article/write")
 	public String showWrite() {
 		return "usr/article/write";
 	}
 	
+	
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req,  Model model) {
+	public String showList(HttpServletRequest req,  Model model, int boardId) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
+		Board board = boardService.getBoardById(boardId);
+
+		if( board == null ) {
+			return rq.historyBackJsOneview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
+		}
+		
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
-		model.addAttribute("articles",articles);
+
+		model.addAttribute("board", board);
+		model.addAttribute("articles", articles);
 		
 		return "usr/article/list";
 	}
