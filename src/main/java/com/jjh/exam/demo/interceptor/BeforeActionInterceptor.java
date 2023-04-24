@@ -21,13 +21,17 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	// 컨트롤러가 실행되기 전에 인터셉터에서 처리할 작업을 구현할 수 있음. 
 	// 이 메서드에서 false를 반환하면 요청을 처리하는 과정이 중지 됨.
 	
+	private Rq rq;
+	public BeforeActionInterceptor(Rq rq) {
+		this.rq = rq;
+	}
 	@Autowired
 	private MemberService memberService;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
+		rq.initOnBeforActionInterceptor();
 		// 이제는 Rq 객체가 자동으로 만들어지기 때문에 필요 없음.
-
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
 }

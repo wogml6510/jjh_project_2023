@@ -17,7 +17,7 @@ import lombok.Getter;
 // HttpSession을 Controller에서 중복사용됨 
 // -> Request조금도 쓰기 쉽게 하는것(중복코드)
 // Session관리
-//자동주입이되는 // 객체가 하나만 존재하는게 아니라 각각의 객체별로 존재해야한다
+//자동주입이되는 // 객체가 하나만 존재하는게 아니라 각각의 객체별로 존재해야한다, Rq객체생성을 spring에게 맡김
 @Component 																
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) 	
 public class Rq {
@@ -93,6 +93,11 @@ public class Rq {
 	
 	public String jsReplace(String msg, String uri) {
 		return Ut.jsReplace(msg, uri);
+	}
+
+	// 이 메서드는 Rq객체가 자연스럽게 생성되도록 유도하는 역할을 한다.
+	// 지우면X, 편의를 위해 BeforActionInterceptor에서 꼭 호출 해줘야 한다.
+	public void initOnBeforActionInterceptor() {
 	}
 	
 }
