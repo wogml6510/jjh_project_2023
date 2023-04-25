@@ -74,7 +74,7 @@ public class UsrArticleController {
 		int itemsCountInAPage = 10; // 하나의 페이지 안에서 카우트몇개할꺼냐 (pagenation)
 		int pagesCount = (int)(Math.ceil((double)articlesCount / itemsCountInAPage));
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage, page);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, searchKeywordTypeCode, searchKeyword, itemsCountInAPage, page);
 
 		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
