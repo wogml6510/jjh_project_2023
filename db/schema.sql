@@ -150,9 +150,16 @@ INSERT INTO article
 (
     regDate, updateDate, memberId, boardId, title, `body`
 )
-SELECT NOW(), NOW(), FLOOR(RAND() *2) + 1, FLOOR(RAND() *2) + 1, CONCAT('제목_', FLOOR(RAND())), CONCAT('내용_', RAND())
+SELECT NOW(), NOW(), FLOOR(RAND() *2) + 1, FLOOR(RAND() *2) + 1, CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
 FROM article;
 
 SELECT * FROM article;
+
+DESC article;
+
+ALTER TABLE article
+ADD COLUMN hitcount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+
 
 

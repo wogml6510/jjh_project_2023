@@ -38,9 +38,9 @@
 				</when>
 				<otherwise>
 					AND (
-						A.title LIKE CONCAT('%',#{searchKeyword},'%')
-						OR
-						A.body LIKE CONCAT('%',#{searchKeyword},'%')
+					A.title LIKE CONCAT('%',#{searchKeyword},'%')
+					OR
+					A.body LIKE CONCAT('%',#{searchKeyword},'%')
 					)
 				</otherwise>
 			</choose>
@@ -51,7 +51,8 @@
 		SELECT A.*,
 		M.nickname AS extra_writerName
 		FROM article AS A
-		LEFT JOIN member AS M
+		LEFT JOIN
+		member AS M
 		ON A.memberId = M.id
 		<if test="boardId != 0">
 			WHERE A.boardId = #{boardId}
@@ -66,15 +67,15 @@
 				</when>
 				<otherwise>
 					AND (
-						A.title LIKE CONCAT('%',#{searchKeyword},'%')
-						OR
-						A.body LIKE CONCAT('%',#{searchKeyword},'%')
+					A.title LIKE CONCAT('%',#{searchKeyword},'%')
+					OR
+					A.body LIKE CONCAT('%',#{searchKeyword},'%')
 					)
 				</otherwise>
 			</choose>
 		</if>
-		ORDER BY id DESC
-		<if test="limitStart != -1">
+		ORDER BY A.id DESC
+		<if test="limitTake != -1">
 			LIMIT #{limitStart}, #{limitTake}
 		</if>
 	</select>
@@ -97,11 +98,16 @@
 		WHERE id = #{id}
 	</update>
 
-
 	<update id="deleteArticle">
 		DELETE FROM article WHERE id = #{id}
 	</update>
 
-
+	<update id="increaseHitCount" >
+		UPDATE article
+		SET hitCount = hitCount + 1
+		WHERE id = #{id}
+	</update>
 
 </mapper> 
+
+
