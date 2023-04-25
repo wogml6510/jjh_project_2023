@@ -12,19 +12,21 @@ public class ResultData<DT> {
 	@Getter
 	private String data1Name;
 	@Getter
+	private String data2Name;
+	
+	@Getter
 	private DT data1; 			// 데이터
+	@Getter
+	private Object data2; 			// 데이터
 	
 
-	private ResultData() {
-
-	}
 	// 실패  가지고온 데이터 토스만 함
 	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode, msg, null, null);
 	}
 
 	// 성공
-	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name ,DT data1) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name, DT data1) {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
@@ -46,6 +48,10 @@ public class ResultData<DT> {
 	// 실패여부
 	public boolean isFail() {
 		return isSuccess() == false;
+	}
+	public void setData2(String dataName, Object data) {
+		data2Name = dataName;
+		data2 = data;
 	}
 	
 
