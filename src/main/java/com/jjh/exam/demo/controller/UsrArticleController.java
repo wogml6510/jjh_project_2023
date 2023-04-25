@@ -58,7 +58,9 @@ public class UsrArticleController {
 	
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page, 
+			@RequestParam(defaultValue = "title, body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) {
 		Board board = boardService.getBoardById(boardId);
 
 		if( board == null ) {
@@ -68,7 +70,7 @@ public class UsrArticleController {
 		// 글이 20, 한페이지에 10개, 1페이지 2페이지
 		// 글이 21, 한페이지에 10개, 1페이지 2페이지 3페이지
 		// 게시글 총 수
-		int articlesCount = articleService.getArticlesCount(boardId);	// 총개시글
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);	// 총개시글
 		int itemsCountInAPage = 10; // 하나의 페이지 안에서 카우트몇개할꺼냐 (pagenation)
 		int pagesCount = (int)(Math.ceil((double)articlesCount / itemsCountInAPage));
 		
