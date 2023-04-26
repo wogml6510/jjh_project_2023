@@ -32,6 +32,8 @@ public interface ArticleRepository {
 
 	public int getArticleHitCount(int id);
 
+	public int actorCanMakeReactionPoint(int memberId, int id);
+
 }
 
 
