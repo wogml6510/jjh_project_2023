@@ -110,4 +110,20 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 	
+	public ResultData increseGoodReactionPoint(int relId) {
+		int affectedRowsCount = articleRepository.increseGoodReactionPoint(relId);
+		
+		if(affectedRowsCount == 0 ) {	
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다.", "affectedRowsCount", affectedRowsCount);
+		}
+		return ResultData.from("S-1", "좋아요 수가 증가되어습니다.","affectedRowsCount", affectedRowsCount);
+	}
+	public ResultData increseBadReactionPoint(int relId) {
+		int affectedRowsCount = articleRepository.increseBadReactionPoint(relId);
+		
+		if(affectedRowsCount == 0 ) {	
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다.", "affectedRowsCount", affectedRowsCount);
+		}
+		return ResultData.from("S-1", "싫어요 수가 증가되어습니다.","affectedRowsCount", affectedRowsCount);
+	}
 }

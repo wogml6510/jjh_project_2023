@@ -52,7 +52,8 @@
 		M.nickname AS
 		extra_writerName
 		FROM article AS A
-		LEFT JOIN MEMBER AS M
+		LEFT JOIN
+		MEMBER AS M
 		ON A.memberId =
 		M.id
 		<if test="boardId != 0">
@@ -77,8 +78,8 @@
 		</if>
 		ORDER BY A.id DESC
 		<if test="limitTake != -1">
-         LIMIT #{limitStart}, #{limitTake}
-      </if>
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
 	</select>
 
 	<select id="getLastInsertId" resultType="int">
@@ -118,6 +119,17 @@
 		WHERE id=#{id}
 	</select>
 
+
+	<update id="increseGoodReactionPoint">
+		UPDATE article
+		SET goodReactionPoint = goodReactionPoint + 1
+		WHERE id =#{id}
+	</update>
+	<update id="increseBadReactionPoint">
+		UPDATE article
+		SET badReactionPoint = badReactionPoint + 1
+		WHERE id =#{id}
+	</update>
 
 </mapper> 
 

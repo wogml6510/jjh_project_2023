@@ -32,6 +32,9 @@ public interface ArticleRepository {
 
 	public int getArticleHitCount(int id);
 
+	public int increseGoodReactionPoint(int relId);
+
+	public int increseBadReactionPoint(int relId);
 
 }
 
