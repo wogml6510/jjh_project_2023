@@ -117,14 +117,7 @@
 		article
 		WHERE id=#{id}
 	</select>
-<!-- 좋아요, 싫어요   -->
-	<select id="actorCanMakeReactionPoint" resultType="int">
-		SELECT IFNULL(SUM(RP.point),0) AS s
-		FROM reactionPoint AS RP 
-		WHERE RP.relTypeCode = 'article'
-		AND RP.id = #{id}
-		AND RP.memberId = #{memberId}
-	</select>
+
 
 </mapper> 
 
