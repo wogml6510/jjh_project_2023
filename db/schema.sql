@@ -222,3 +222,19 @@ relId = 1,
 
 SELECT * FROM reactionPoint;
 
+
+SELECT A.*,
+IFNULL(SUM(RP.point),0) AS extra_sumReactionPoint,
+IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS extra_goodReactionPoint,
+IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS extra_badReactionPoint
+FROM (
+    SELECT A.*,
+    M.nickname AS extra_writerName
+    FROM article AS A
+    LEFT JOIN MEMBER AS M
+    ON A.memberId = M.id
+) AS A
+LEFT JOIN reactionPoint AS RP
+ON RP.relTypeCode = 'article'
+AND A.id = RP.relId
+GROUP BY A.id

@@ -49,10 +49,15 @@
 
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,
+		IFNULL(SUM(RP.point),0) AS extra_sumReactionPoint,
+		IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS extra_goodReactionPoint,
+		IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS
+		extra_badReactionPoint
+		FROM (
+		SELECT A.*,
 		M.nickname AS extra_writerName
 		FROM article AS A
-		LEFT JOIN
-		member AS M
+		LEFT JOIN MEMBER AS M
 		ON A.memberId = M.id
 		<if test="boardId != 0">
 			WHERE A.boardId = #{boardId}
@@ -74,10 +79,12 @@
 				</otherwise>
 			</choose>
 		</if>
+		) AS A
+		LEFT JOIN reactionPoint AS RP
+		ON RP.relTypeCode = 'article'
+		AND A.id = RP.relId
+		GROUP BY A.id 
 		ORDER BY A.id DESC
-		<if test="limitTake != -1">
-			LIMIT #{limitStart}, #{limitTake}
-		</if>
 	</select>
 
 	<select id="getLastInsertId" resultType="int">
@@ -102,15 +109,17 @@
 		DELETE FROM article WHERE id = #{id}
 	</update>
 
-	<update id="increaseHitCount" >
+	<update id="increaseHitCount">
 		UPDATE article
-		SET hitCount = hitCount + 1
+		SET hitCount =
+		hitCount + 1
 		WHERE id = #{id}
 	</update>
-	
+
 	<select id="getArticleHitCount" resultType="int">
 		SELECT hitCount
-		FROM article
+		FROM
+		article
 		WHERE id=#{id}
 	</select>
 
