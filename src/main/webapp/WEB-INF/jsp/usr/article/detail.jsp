@@ -191,7 +191,7 @@ $(function(){
    <h1>댓글 작성</h1>
     <c:if test="${rq.isLogined() }">
        <form class="table-box-type-1" method="post" action="../article/doWrite" onsubmit="ReplyWrite__submitForm(this); return false;">
-         <input type="hidden" name="relTypeCode" value="article.id"/>
+         <input type="hidden" name="relTypeCode" value="article"/>
          <input type="hidden" name="relId" value="${article.id }"/>
         
          <table>

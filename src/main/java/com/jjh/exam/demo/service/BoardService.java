@@ -9,8 +9,8 @@ import com.jjh.exam.demo.vo.Board;
 public class BoardService {
 	private BoardRepository boardRepository;
 	
-	public BoardService(BoardRepository boardRpository) {
-		this.boardRepository = boardRpository;
+	public BoardService(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
 	}
 	
 	public Board getBoardById(int id) {
