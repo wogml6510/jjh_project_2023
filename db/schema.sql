@@ -248,6 +248,8 @@ ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0 ;
 #게시물 테이블 badReactionPoint 컬럼 추가
 ALTER TABLE article
 ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0 ;
+
+
 /*
 select RP.relTypeCode, RP.relId,
 sum(if(RP.point > 0, RP.point, 0)) as goodReactionPoint,
@@ -325,3 +327,23 @@ relId = 1,
 `body` = '댓글 5';
 
 SELECT * FROM reply;
+
+EXPLAIN	SELECT R.*,
+M.nickname AS extra_writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = 'article'
+AND R.relId = 1
+ORDER BY R.id DESC
+
+#댓글에 좋아요 수, 싫어요 수 컬럼 추가
+ALTER TABLE reply
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0 ;
+
+ALTER TABLE reply
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0 ;
+
+# 검색속도 빨라지는거 뭐시기
+ALTER TABLE `reply` ADD INDEX (`relTypeCode`, `relId`);
+
