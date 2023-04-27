@@ -103,12 +103,23 @@ public class UsrArticleController {
 		 */
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
-		
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),"article", id);
-		
-		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
 		model.addAttribute("article", article);
+		
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),"article", id);
+		
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionPointRd.isSuccess());
 
+		if(actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int)actorCanMakeReactionPointRd.getData1();
+			
+			if(sumReactionPointByMemberId > 0) {
+				model.addAttribute("actorCanCancelGoodReaction", true);		 // 1 : 좋아요		
+			}
+			else {
+				model.addAttribute("actorCanCancelBadReaction", true);		// -1 : 싫어요			
+			}
+		}
+		
 		return "usr/article/detail";
 	}
 
