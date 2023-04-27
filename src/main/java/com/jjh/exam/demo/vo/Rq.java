@@ -55,6 +55,10 @@ public class Rq {
 		this.req.setAttribute("rq", this);	// Rq를 편하게 쓰기위해서 변경해줌
 	}
 	
+	public boolean isNotLogined() {
+		return !isLogined;
+	}
+	
 	public void prinHhistoryBackJs(String msg) {	
 		resp.setContentType("text/html; charset=UTF-8");
 		print(Ut.jsHistoryBack(msg));
