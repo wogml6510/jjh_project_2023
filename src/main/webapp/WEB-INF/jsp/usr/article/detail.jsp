@@ -57,29 +57,31 @@ $(function(){
 </script>
 
 <script>
-	let ReplyWrite__submitFormDone = false;
-	function ReplyWrite__submitForm(form){
-		if (ReplyWrite__submitFormDone){
-			return;
-		}
-		
-		// 좌우공백 제거
-		form.body.value = form.body.value.trim();
-		
-		if(form.body.value.length == 0 ){
-			alert('댓글을 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		if(form.body.value.length < 2 ){
-			alert('댓글을 2자 이상 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		ReplyWrite__submitFormDone = true;
-		form.submit();
-	}
+   //댓글작성 관련
+   let ReplyWrite__submitFormDone = false;
+   function ReplyWrite__submitForm(form){
+      if ( ReplyWrite__submitFormDone ) {
+         return;
+      }
+      //좌우공백 제거
+      form.body.value = form.body.value.trim();
+      
+      if (form.body.value.length == 0 ){
+         alert('댓글을 입력해주세요.');
+         form.body.focus();
+         return;
+      }
+      
+      if (form.body.value.length < 2 ){
+         alert('댓글을 2자 이상 입력해주세요.');
+         form.body.focus();
+         return;
+      }
+      
+      ReplyWrite__submitFormDone = true;
+      form.submit();
+      
+   }
 </script>
 
 
@@ -190,7 +192,7 @@ $(function(){
    <div class="container mx-auto px-3">
    <h1>댓글 작성</h1>
     <c:if test="${rq.isLogined() }">
-       <form class="table-box-type-1" method="post" action="../article/doWrite" onsubmit="ReplyWrite__submitForm(this); return false;">
+       <form class="table-box-type-1" method="post" action="../reply/doWrite" onsubmit="ReplyWrite__submitForm(this); return false;">
          <input type="hidden" name="relTypeCode" value="article"/>
          <input type="hidden" name="relId" value="${article.id }"/>
         
@@ -200,7 +202,7 @@ $(function(){
          </colgroup>
            <tbody>
              <tr>
-               <th>작성자</th>
+               <th>relId</th>
                <td>${rq.loginedMember.nickname}</td>
              </tr>
              <tr>
@@ -228,6 +230,12 @@ $(function(){
     </div>
 </section>
 
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<h1>댓글 리스트(${repliesCount })</h1>
+	
+	</div>
+</section>
 
 
 <%@ include file="../common/foot.jspf"%>

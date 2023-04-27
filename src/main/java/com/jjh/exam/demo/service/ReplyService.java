@@ -1,11 +1,14 @@
 package com.jjh.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jjh.exam.demo.repository.BoardRepository;
 import com.jjh.exam.demo.repository.ReplyRepository;
 import com.jjh.exam.demo.utill.Ut;
 import com.jjh.exam.demo.vo.Board;
+import com.jjh.exam.demo.vo.Reply;
 import com.jjh.exam.demo.vo.ResultData;
 
 @Service
@@ -21,6 +24,11 @@ public class ReplyService {
 		int id = replyRepository.getLastInsertId();
 		
 		return ResultData.from("S-1", Ut.f("%d번 댓글이 생성되었습니다.", id),"id", id);
+	}
+
+
+	public List<Reply> getForPrintReplies(int acotrId, String relTypeCode, int relId) {
+		return replyRepository.getForPrintReplies(acotrId, relTypeCode, relId);
 	}
 	
 	

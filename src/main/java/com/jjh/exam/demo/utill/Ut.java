@@ -15,6 +15,7 @@ public class Ut {
 		if(obj instanceof Long) {
 			return ((long) obj) == 0;
 		}
+		
 		// 이 객체가 String객체 체크
 		if( obj instanceof String == false) {
 			return true;
