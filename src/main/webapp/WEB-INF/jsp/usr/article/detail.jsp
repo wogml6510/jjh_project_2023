@@ -106,7 +106,7 @@ $(function(){
 											</c:if>
 											
 											<c:if test="${actorCanCancelGoodReaction }">
-												<a href="/usr/reactionPoint/doactorCanCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" 
+												<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" 
 												class="btn btn-xs btn btn-primary">
 													좋아요👍
 												</a>
@@ -117,7 +117,7 @@ $(function(){
 											</c:if>
 											
 											<c:if test="${actorCanCancelBadReaction }">
-												<a href="/usr/reactionPoint/doactorCanCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" 
+												<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}" 
 												class="btn btn-xs btn btn-primary">
 													좋아요👍
 												</a>

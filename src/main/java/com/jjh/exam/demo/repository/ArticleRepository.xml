@@ -130,6 +130,17 @@
 		SET badReactionPoint = badReactionPoint + 1
 		WHERE id =#{id}
 	</update>
+	
+	<update id="decreseGoodReactionPoint">
+		UPDATE article
+		SET goodReactionPoint = goodReactionPoint - 1
+		WHERE id =#{id}
+	</update>
+	<update id="decreseBadReactionPoint">
+		UPDATE article
+		SET badReactionPoint = badReactionPoint - 1
+		WHERE id =#{id}
+	</update>
 
 </mapper> 
 
