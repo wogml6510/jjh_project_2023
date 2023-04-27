@@ -89,7 +89,7 @@ public class ArticleService {
 	// 로그인체크, 현제 접속한 id
 	public ResultData actorCanModify(int actorId, Article article) {
 		if (article == null) {
-			return ResultData.from("F-1", "권한이 없습니다.");
+			return ResultData.from("F-1", "게시물이 존재하지않습니다.");
 		}
 		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-2", "권한이 없습니다.");

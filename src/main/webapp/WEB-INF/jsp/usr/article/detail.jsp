@@ -56,33 +56,6 @@ $(function(){
 })
 </script>
 
-<script>
-   //댓글작성 관련
-   let ReplyWrite__submitFormDone = false;
-   function ReplyWrite__submitForm(form){
-      if ( ReplyWrite__submitFormDone ) {
-         return;
-      }
-      //좌우공백 제거
-      form.body.value = form.body.value.trim();
-      
-      if (form.body.value.length == 0 ){
-         alert('댓글을 입력해주세요.');
-         form.body.focus();
-         return;
-      }
-      
-      if (form.body.value.length < 2 ){
-         alert('댓글을 2자 이상 입력해주세요.');
-         form.body.focus();
-         return;
-      }
-      
-      ReplyWrite__submitFormDone = true;
-      form.submit();
-      
-   }
-</script>
 
 
 <section class="mt-5">
@@ -187,10 +160,39 @@ $(function(){
 </section>
 
 
+<script>
+   //댓글작성 관련
+   let ReplyWrite__submitFormDone = false;
+   function ReplyWrite__submitForm(form){
+      if ( ReplyWrite__submitFormDone ) {
+         return;
+      }
+      //좌우공백 제거
+      form.body.value = form.body.value.trim();
+      
+      if (form.body.value.length == 0 ){
+         alert('댓글을 입력해주세요.');
+         form.body.focus();
+         return;
+      }
+      
+      if (form.body.value.length < 2 ){
+         alert('댓글을 2자 이상 입력해주세요.');
+         form.body.focus();
+         return;
+      }
+      
+      ReplyWrite__submitFormDone = true;
+      form.submit();
+      
+   }
+</script>
 
 <section class="mt-5">
    <div class="container mx-auto px-3">
    <h1>댓글 작성</h1>
+
+   
     <c:if test="${rq.isLogined() }">
        <form class="table-box-type-1" method="post" action="../reply/doWrite" onsubmit="ReplyWrite__submitForm(this); return false;">
          <input type="hidden" name="relTypeCode" value="article"/>
@@ -230,10 +232,54 @@ $(function(){
     </div>
 </section>
 
-<section class="mt-5">
+<section class="mt-5 mb-5">
 	<div class="container mx-auto px-3">
-		<h1>댓글 리스트(${repliesCount })</h1>
+		<h1>댓글 리스트(${replies.size() })</h1>
+	   
+   <table class="table table-fixed w-full">
+        <colgroup>	
+          <col width="50"/>
+          <col width="100"/>
+          <col width="100"/>
+          <col width="50"/>
+          <col width="100"/>
+          <col width="150"/>
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>작성날짜</th>
+            <th>수정날짜</th>
+            <th>추천</th>
+            <th>작성자</th>
+            <th>비고</th>
+            <th>댓글내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:forEach var="reply" items="${replies}">
+            <tr class="hover">
+              <th>${reply.id}</th>
+              <td>${reply.forPrintintType1RegDate()}</td>
+              <td>${reply.forPrintintType1UpdateDate()}</td>
+              <td>${reply.goodReactionPoint}</td>
+              <td>${reply.extra_writerName}</td>
+              <td>
+	            <c:if test="${reply.extra_actorCanModify }">
+					<a class="btn btn-link" href="../reply/modify?id=${reply.id}">수정</a>
+				</c:if>
 	
+				<c:if test="${reply.extra_actorCanDelete }">
+					<a class="btn btn-link" onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;"
+								href="../reply/doDelete?id=${reply }.id} ">삭제</a>
+				</c:if>
+              </td>
+              <td>${reply.forPrintBody}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
 	</div>
 </section>
 
