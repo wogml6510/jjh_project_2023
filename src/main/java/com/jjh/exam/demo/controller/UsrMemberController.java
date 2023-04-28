@@ -161,8 +161,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/myPage")
 	@ResponseBody
-	public List<Member> showPage() {
-		return "/usr/member/myPage";
+	public String showPage() {
+		return "usr/member/myPage";
 	}
 	
 	
