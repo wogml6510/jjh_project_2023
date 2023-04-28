@@ -128,12 +128,6 @@ public class UsrMemberController {
 		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()),"/");
 	}
 
-	@RequestMapping("/usr/member/getMembers")
-	@ResponseBody
-	public List<Member> getMembers() {
-		return memberService.getMembers();
-	}
-
 	@RequestMapping("/usr/member/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
@@ -157,4 +151,20 @@ public class UsrMemberController {
 		memberService.modifyMember(id, loginId, loginPw, name, nickname, cellphoneNo, email);
 		return id + "번 회원정보가 수정되었습니다.";
 	}
+
+	@RequestMapping("/usr/member/getMembers")
+	@ResponseBody
+	public List<Member> getMembers() {
+		return memberService.getMembers();
+	}
+	
+
+	@RequestMapping("/usr/member/myPage")
+	@ResponseBody
+	public List<Member> showPage() {
+		return "/usr/member/myPage";
+	}
+	
+	
+	
 }
