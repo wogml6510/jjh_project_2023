@@ -152,7 +152,7 @@ $(function(){
 
 			<c:if test="${article.extra_actorCanDelete }">
 				<a class="btn btn-link" onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;"
-							href="../article/doDelete?id=${article.id} ">게시물 삭제</a>
+							href="../article/doDelete?id=${article.id}">게시물 삭제</a>
 			</c:if>
 		</div>
 	</div>
@@ -272,7 +272,7 @@ $(function(){
 	
 				<c:if test="${reply.extra_actorCanDelete }">
 					<a class="btn btn-link" onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;"
-								href="../reply/doDelete?id=${reply }.id} ">삭제</a>
+								href="../reply/doDelete?id=${reply.id}">삭제</a>
 				</c:if>
               </td>
               <td>${reply.forPrintBody}</td>

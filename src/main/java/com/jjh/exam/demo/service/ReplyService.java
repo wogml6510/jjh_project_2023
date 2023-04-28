@@ -70,7 +70,7 @@ public class ReplyService {
 		return ResultData.from("S-1", "댓글 삭제가 가능합니다.");
 	}
 
-	public Reply getForPrintPeply(int actorId, int id) {
+	public Reply getForPrintReply(int actorId, int id) {
 		Reply reply = replyRepository.getForPrintReply(actorId, id);
 		
 		updataForPrintData(actorId, reply);
