@@ -372,3 +372,6 @@ ALTER TABLE `attr` ADD INDEX(`relTypeCode`,`typeCode`,`type2Code`);
 ALTER TABLE `attr` ADD COLUMN `expireDate` DATETIME NULL AFTER `value`;
 DESC attr;
 
+
+
+
