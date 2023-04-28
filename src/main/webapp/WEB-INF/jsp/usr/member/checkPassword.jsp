@@ -5,7 +5,7 @@
 
 <section class="mt-5">
       <div class="container mx-auto">
-            <form class="table-box-type-1" method="post" action="../member/doLogin">
+            <form class="table-box-type-1" method="post" action="../member/doCheckPassword">
                <table>
                   <colgroup>
                      <col width="200"/>
@@ -15,17 +15,17 @@
                               <tr>
                                  <th>로그인아이디</th>
                                  <td>
-                                    <input type="text" class="w-96 input input-bordered w-full max-w-xs"  name="loginId" placeholder="로그인아이디"/>
+                                 	${rq.loginedMember.loginId}
                                  </td>
                               </tr>
                               <tr>
                                  <th>로그인비밀번호</th>
                                  <td>
-                                    <input type="text" class="w-96 input input-bordered w-full max-w-xs"  name="loginPw" placeholder="로그인비밀번호"/>
+                                    <input required="required" type="text" class="w-96 input input-bordered w-full max-w-xs"  name="loginPw" placeholder="로그인비밀번호"/>
                                  </td>
                               </tr>
                               <tr>
-                                 <th>로그인</th>
+                                 <th>비밀번호 확인</th>
                                  <td>
                                     <input type="submit"  class="btn btn-primary" value="로그인"/>
                                     <button type="button"  class="btn btn-outline btn-primary"  onclick="history.back();">뒤로가기</button>
