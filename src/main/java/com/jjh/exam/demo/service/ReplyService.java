@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.jjh.exam.demo.repository.BoardRepository;
 import com.jjh.exam.demo.repository.ReplyRepository;
 import com.jjh.exam.demo.utill.Ut;
-import com.jjh.exam.demo.vo.Article;
-import com.jjh.exam.demo.vo.Board;
 import com.jjh.exam.demo.vo.Reply;
 import com.jjh.exam.demo.vo.ResultData;
 
@@ -75,7 +72,7 @@ public class ReplyService {
 		
 		updataForPrintData(actorId, reply);
 		
-		return null;
+		return reply;
 	}
 
 	public ResultData deleteReply(int id) {

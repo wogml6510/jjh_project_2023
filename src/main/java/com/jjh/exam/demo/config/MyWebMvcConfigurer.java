@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.jjh.exam.demo.interceptor.BeforeActionInterceptor;
 import com.jjh.exam.demo.interceptor.NeedLoginInterceptor;
+import com.jjh.exam.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
@@ -18,6 +19,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// BeforeActionInterceptor불러오기
 	@Autowired
 	NeedLoginInterceptor needLoginInterceptor;
+	
+	@Autowired
+	NeedLogoutInterceptor needLogoutInterceptor;
 
 	// InterceptorRegistry?
 	// addPathPatterns 이 이후에 들어오는 모든 인터셉터 작동해, excluedPathPatterns 이거 제외하고.
@@ -54,6 +58,21 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doCancelGoodReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doCancelDadReaction");
+		
+		ir = registry.addInterceptor(needLogoutInterceptor);
+		ir.addPathPatterns("/usr/member/myPage");
+		ir.addPathPatterns("/usr/member/doJoin");
+		ir.addPathPatterns("/usr/member/login");
+		ir.addPathPatterns("/usr/member/doLogin");
+		ir.addPathPatterns("/usr/member/findLoginId");
+		ir.addPathPatterns("/usr/member/dofindLoginId");
+		ir.addPathPatterns("/usr/member/findLoginPw");
+		ir.addPathPatterns("/usr/member/dofindLoginPw");
+		
+		
+		
+		
+		
 		
 		// before실행후 need실행
 	}
