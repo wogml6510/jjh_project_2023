@@ -55,11 +55,11 @@
       }
       
       //휴대전화번호
-      form.cellPhoneNo.value = form.cellPhoneNo.value.trim();
+      form.cellphoneNo.value = form.cellphoneNo.value.trim();
       
-      if(form.cellPhoneNo.value.length == 0){
+      if(form.cellphoneNo.value.length == 0){
      	 alert('휴대전화번호를 입력해주세요.');
-     	 form.cellPhoneNo.focus();
+     	 form.cellphoneNo.focus();
      	 return;
       }
       
@@ -119,8 +119,8 @@
                               <tr>
                                     <th>휴대전화번호</th>
                                     <td>
-                                          <input type="text" class="input input-bordered" name="cellPhoneNo" placeholder="휴대전화번호를 입력해주세요."
-                                                value="${rq.loginedMember.cellPhoneNo }" />
+                                          <input type="text" class="input input-bordered" name="cellphoneNo" placeholder="휴대전화번호를 입력해주세요."
+                                                value="${rq.loginedMember.cellphoneNo }" />
                                     </td>
                               </tr>
 

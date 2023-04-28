@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.jjh.exam.demo.vo.Member;
 
@@ -32,6 +32,8 @@ public interface MemberRepository {
 
 
 	public Member getMemberByNickNameNPhoneNEmail(@Param("nickname")String nickname,@Param("cellphoneNo")String cellphoneNo,@Param("email")String email);
+
 	
+	public void modify(int id, String loginPw, String name, String nickname, String email, String cellphoneNo);
 	
 }

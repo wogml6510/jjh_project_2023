@@ -43,13 +43,15 @@
 	<select id="getMember" resultType="Member">
 		SELECT *
 		FROM Member
-		WHERE id=#{id}
+		WHERE
+		id=#{id}
 	</select>
 
 	<select id="getMembers" resultType="Member">
 		SELECT *
 		FROM Member
-		ORDER BY id DESC
+		ORDER BY
+		id DESC
 	</select>
 
 	<select id="getMemberByLoginId" resultType="Member">
@@ -57,11 +59,35 @@
 		FROM Member
 		WHERE loginId=#{loginId}
 	</select>
-	
+
 	<select id="getMemberByNickNameNPhoneNEmail" resultType="Member">
 		SELECT *
 		FROM Member
-		WHERE nickname=#{nickname} AND cellphoneNo=#{cellphoneNo} AND email=#{email}
+		WHERE nickname=#{nickname} AND cellPhoneNo=#{cellPhoneNo}
+		AND email=#{email}
 	</select>
+
+	<update id="modify">
+		UPDATE `member`
+		<set>
+			updateDate = NOW(),
+			<if test="loginPw != null">
+				loginPw = #{loginPw},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="cellphoneNo != null">
+				cellphoneNo = #{cellphoneNo}
+			</if>
+		</set>
+		WHERE id =#{id}
+	</update>
 
 </mapper>
