@@ -22,7 +22,7 @@ public class NeedLogoutInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 
-		if (!rq.isLogined()) {
+		if (rq.isLogined()) {
 
 			rq.prinHhistoryBackJs("로그아웃 후 이용해주세요.");
 			return false;

@@ -159,7 +159,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myPage")
-	public String showPage() {
+	public String u() {
 		return "/usr/member/myPage";
 	}
 	
@@ -171,14 +171,16 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
 	public String doCheckPassword(String loginPw, String replaceUri) {
-		if(Ut.empty(loginPw)) {
-			return rq.jsHistoryBack("loginPw(을)를 입력해주세요.");
-		}
 		if(rq.getLoginedMember().getLoginPw().equals(loginPw)==false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
 		return rq.jsReplace("", replaceUri);
+	}
+	
+	@RequestMapping("/usr/member/modify")
+	public String showModify() {
+		return "usr/member/modify";
 	}
 	
 }
