@@ -160,9 +160,8 @@ public class UsrMemberController {
 	
 
 	@RequestMapping("/usr/member/myPage")
-	@ResponseBody
 	public String showPage() {
-		return "usr/member/myPage";
+		return "/usr/member/myPage";
 	}
 	
 	

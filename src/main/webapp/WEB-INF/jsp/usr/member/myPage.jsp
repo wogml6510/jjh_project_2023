@@ -5,7 +5,8 @@
 
 <section class="mt-5">
       <div class="container mx-auto">
-               <table>
+          <div class="table-box-type-1">
+          		<table>
                   <colgroup>
                      <col width="200"/>
                   </colgroup>
@@ -40,7 +41,7 @@
                               </tr>
                         </tbody>
                   </table>
-
+          </div>
       </div>
 </section>
 
