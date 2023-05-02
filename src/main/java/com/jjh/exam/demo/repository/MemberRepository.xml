@@ -63,7 +63,7 @@
 	<select id="getMemberByNickNameNPhoneNEmail" resultType="Member">
 		SELECT *
 		FROM Member
-		WHERE nickname=#{nickname} AND cellPhoneNo=#{cellPhoneNo}
+		WHERE nickname=#{nickname} AND cellphoneNo=#{cellphoneNo}
 		AND email=#{email}
 	</select>
 
