@@ -12,9 +12,11 @@ import com.jjh.exam.demo.vo.ResultData;
 @Service
 public class MemberService {
 	private MemberRepository memberRepository;
+	private AttrService attrService;
 
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(MemberRepository memberRepository, AttrService attrService) {
 		this.memberRepository = memberRepository;
+		this.attrService = attrService;
 	}
 
 	public Member getMember(int id) {
@@ -68,4 +70,27 @@ public class MemberService {
 		memberRepository.modify(id, loginPw, name, nickname, email, cellphoneNo);
 		return ResultData.from("S-1",  "회원정보가 수정되었습니다.");
 	}
+
+	public String genMemberModifyAuthKey(int id) {
+		// 10글자
+		String memberModifyAuthKey = Ut.getTempPassword(10);
+		
+		attrService.setValue("member", id,"extra", "memberModifyAuthKey",memberModifyAuthKey, Ut.getDateStrLater(60 * 5));
+		
+		return memberModifyAuthKey;
+	}
+
+	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
+		String saved = attrService.getValue("member", actorId, "extra", "memberModifyAuthKey");
+		
+		if( !saved.equals(memberModifyAuthKey)) {
+			return ResultData.from("F-1", "일치하지 않거나 만료되었습니다.");
+		}
+		
+		return  ResultData.from("S-1", "정상적인 코드입니다.");
+	}
 }
+
+
+
+

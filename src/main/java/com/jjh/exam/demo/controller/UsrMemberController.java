@@ -2,8 +2,8 @@ package com.jjh.exam.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,7 +14,6 @@ import com.jjh.exam.demo.vo.ResultData;
 import com.jjh.exam.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrMemberController {
@@ -159,7 +158,9 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/myPage")
-	public String u() {
+	public String showMyPage(Model model) {
+		String replaceUri = Ut.getUriEncoded("../member/modify");
+		model.addAttribute("replaceUri", replaceUri);
 		return "/usr/member/myPage";
 	}
 	
@@ -175,17 +176,41 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
+		if(replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
+		}
+		
 		return rq.jsReplace("", replaceUri);
 	}
 	
 	@RequestMapping("/usr/member/modify")
-	public String showModify() {
+	public String showModify(String memberModifyAuthKey) {
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOneview("memberModifyAuthKey가 필요합니다.");
+		}
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOneview(checkMemberModifyAuthKeyRd.getMsg());
+		}
+		
 		return "usr/member/modify";
 	}
 	
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+	public String doModify(String memberModifyAuthKey, String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.historyBackJsOneview("memberModifyAuthKey가 필요합니다.");
+		}
+		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
+		
+		if(checkMemberModifyAuthKeyRd.isFail()) {
+			return rq.historyBackJsOneview(checkMemberModifyAuthKeyRd.getMsg());
+		}
 		
 		if (Ut.empty(loginPw)) {
 			loginPw = null;

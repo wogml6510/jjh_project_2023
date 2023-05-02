@@ -3,6 +3,7 @@
 <c:set var="pageTitle" value="마이페이지 수정"/>
 <%@ include file="../common/head.jspf"  %>   
 
+
 <script>
    //회원정보수정
    let MemberModify__submitDone = false;
@@ -72,7 +73,7 @@
 <section class="mt-5">
       <div class="container mx-auto px-3">
             <form class="table-box-type-1" method="post" action="../member/doModify" onsubmit="MemberModify__submit">
-                  <input type="hidden" name="id" value="${rq.loginedMember.id }" />
+                  <input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey }" />
 
                   <table>
                         <colgroup>
