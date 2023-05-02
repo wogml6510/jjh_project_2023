@@ -38,9 +38,12 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody // 클라이언트가 요청을 했을때만 받겠다.
-	public String doWrite(int boardId, String title, String body, String replaceUri) {
-
+	public String doWrite(Integer boardId, String title, String body, String replaceUri) {
+		
 		// title, body 입력하지 않았을때(공백,여백) 메세지
+		if (Ut.empty(boardId)) {
+			return rq.jsHistoryBack("게시판을 선택해주세요.");
+		}
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
