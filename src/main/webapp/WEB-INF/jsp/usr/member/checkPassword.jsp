@@ -15,13 +15,12 @@
       
       if(form.loginPwInput.value.length == 0){
          alert('비밀번호를 입력해주세요.');
-         form.loginPwInput.value = '';
          form.loginPwInput.focus();
          return;
       }
 
       if(form.loginPwInput.value != form.loginPw.value){
-          alert('비밀번호가 일치하지 않습니다.');
+          alert('비밀번호가 일치하지 않습니다.11111');
          form.loginPwInput.value = '';
           form.loginPwInput.focus();
           return;
@@ -55,7 +54,7 @@
                               <tr>
                                  <th>로그인비밀번호</th>
                                  <td>
-                                    <input required="required" type="password" class="w-96 input input-bordered w-full max-w-xs"  name="loginPwInput" placeholder="로그인비밀번호"/>
+                                    <input type="password" class="w-96 input input-bordered w-full max-w-xs"  name="loginPwInput" placeholder="로그인비밀번호"/>
                                  </td>
                               </tr>
                               <tr>
