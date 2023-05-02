@@ -134,6 +134,7 @@ public class Rq {
 	private String getAfterLoginUri() {
 		String requestUri = req.getRequestURI();
 		// 주소줄 가져와서 비교( 로그인이 필요없는 페이지의 주소줄은 return해줌)
+		// [ 로그인 후 돌아가면 안되는 페이지 URL ]
 		switch(requestUri) {
 		case "/usr/member/login":
 		case "/usr/member/join":
@@ -144,4 +145,15 @@ public class Rq {
 		return getEncodedCurrentUri();
 	}
 	
+	public String getLogoutUri() {
+		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+	}
+	private String getAfterLogoutUri() {
+		String requestUri = req.getRequestURI();
+//		switch(requestUri) {
+//		case "/usr/article/write":
+//			return Ut.getUriEncoded(Ut.getStrAttr(paramMap, "afterLogioutUri", ""));
+//		}
+		return getEncodedCurrentUri();
+	}
 }
