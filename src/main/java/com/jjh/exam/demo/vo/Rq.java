@@ -131,7 +131,7 @@ public class Rq {
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 
-	private String getAfterLoginUri() {
+	public String getAfterLoginUri() {
 		String requestUri = req.getRequestURI();
 		// 주소줄 가져와서 비교( 로그인이 필요없는 페이지의 주소줄은 return해줌)
 		// [ 로그인 후 돌아가면 안되는 페이지 URL ]
@@ -148,7 +148,7 @@ public class Rq {
 	public String getLogoutUri() {
 		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
-	private String getAfterLogoutUri() {
+	public String getAfterLogoutUri() {
 		String requestUri = req.getRequestURI();
 //		switch(requestUri) {
 //		case "/usr/article/write":
@@ -156,4 +156,12 @@ public class Rq {
 //		}
 		return getEncodedCurrentUri();
 	}
+	
+	public String getArticleDetailUriFromArticleList(Article article) {
+		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+	}
+	
 }
+
+
+
